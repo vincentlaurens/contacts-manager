@@ -35,6 +35,7 @@ public class ContactsManagerMust {
         ContactsManager contactsManager = new ContactsManager();
         String noEmail = null;
         String noPhoneNumber = null;
+
         contactsManager.addContact(NICOLE_FERRONI_NAME, noEmail, noPhoneNumber);
 
         contactsManager.printAllContacts();
