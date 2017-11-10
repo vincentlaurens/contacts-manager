@@ -48,26 +48,19 @@ public class ContactsManager {
     }
 
 
-    public void searchContactByName(String name) {
-        int j = 0;
-        boolean find = false;
-        if (contactList.isEmpty()) {
-            System.out.println("Liste de contacts vide !!!");
+    public void searchContactByName(String name){
+        boolean vraiSiTrouveAuMoinsUnContact =  false;
+        for( Contact courant : contactList){
+            String nomAcompare = courant.utiliseName();
+            nomAcompare = nomAcompare.toLowerCase();
+            if( nomAcompare.contains(name)){
+                System.out.println(courant.toString());
+                vraiSiTrouveAuMoinsUnContact = true;
+            }
         }
-        parcoursearch = contactList.get(0);
-        while (j < contactList.size() || !parcoursearch.name.equals(name)) {
-            parcoursearch = contactList.get(j);
-            find = false;
-            j++;
+        if(!vraiSiTrouveAuMoinsUnContact){
+            System.out.println("Aucun contact trouvé");
         }
-        if (parcoursearch.name.equals(name)) {
-            System.out.println(parcoursearch.name + ", " + parcoursearch.email + ", " + parcoursearch.phoneNumber + "\n------------");
-            find =true;
-        }
-        if (find == false){
-            System.out.println("------------\nAttention : Ce contact n'existe pas\n-------------- ");
-        }
-
     }
 }
 

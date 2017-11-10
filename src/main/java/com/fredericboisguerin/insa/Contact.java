@@ -1,10 +1,10 @@
 package com.fredericboisguerin.insa;
 
 public class Contact {
-    String name;
-    String email;
-    String phoneNumber;
-    String chaine_retour;
+    private String name;
+    private String email;
+    private String phoneNumber;
+    private String chaine_retour;
 
 
     public Contact(String name, String email, String phoneNumber) {
@@ -29,14 +29,14 @@ public class Contact {
         return chaine_retour;
     }
 
-  /*  public void modifyName(String name){
-        this.name = name;
+   public String utiliseName(){
+        return this.name;
     }
-    public void modifyemail(String email){
-        this.email = email;
+    public String utiliseemail(String email){
+        return this.email;
     }
-    public void modifyPhoneNumber(String phoneNumber){
-        this.phoneNumber = phoneNumber;
-    }*/
+    public String utilisePhoneNumber(String phoneNumber){
+        return this.phoneNumber;
+    }
 
 }
