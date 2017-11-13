@@ -32,10 +32,10 @@ public class Contact {
    public String utiliseName(){
         return this.name;
     }
-    public String utiliseemail(String email){
+    public String utiliseemail(){
         return this.email;
     }
-    public String utilisePhoneNumber(String phoneNumber){
+    public String utilisePhoneNumber(){
         return this.phoneNumber;
     }
 

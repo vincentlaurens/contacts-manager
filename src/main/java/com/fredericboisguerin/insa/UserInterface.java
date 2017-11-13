@@ -1,15 +1,16 @@
 package com.fredericboisguerin.insa;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class UserInterface {
 
-    public UserInterface() throws InvalidEmailException, InvalidContactNameException {
+    public UserInterface() throws InvalidEmailException, InvalidContactNameException, IOException {
         Scanner sc = new Scanner(System.in);
         boolean inMenu = true;
         ContactsManager monContact = new ContactsManager();
         while (inMenu) {
-            System.out.println("--------------------\n 1-Créer un nouveau contact\n 2-Chercher un contact \n 3-Afficher les contact\n 4-Quitter le menu \n---------------------");
+            System.out.println("--------------------\n 1-Créer un nouveau contact\n 2-Chercher un contact \n 3-Afficher les contact\n 4-Quitter le menu \n ---------------------");
             System.out.println("Faite votre choix:");
             int choixMenuUser  = sc.nextInt();
             switch (choixMenuUser) {
@@ -51,8 +52,9 @@ public class UserInterface {
             System.out.println("--------------\nAttention :"+e.getMessage()+"\n--------------------");
         }catch (InvalidEmailException emailException){
             System.out.println("--------------\nAttention :"+emailException.getMessage()+"\n---------------");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
 
 
     }

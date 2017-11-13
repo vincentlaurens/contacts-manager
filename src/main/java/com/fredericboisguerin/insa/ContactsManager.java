@@ -1,5 +1,6 @@
 package com.fredericboisguerin.insa;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -7,13 +8,15 @@ import java.util.regex.Matcher;
 public class ContactsManager {
     private Contact newContact;
     private Contact parcoursearch;
+    private ContactDAO contctPersist;
     ArrayList<Contact> contactList;
 
-    public ContactsManager() {
-        contactList = new ArrayList<Contact>();
+    public ContactsManager() throws IOException {
+        this.contactList = new ArrayList<Contact>();
+        this.contctPersist = new ContactDAO("src/ressources/","contactList.csv");
     }
 
-    public void addContact(String name, String email, String phoneNumber) throws InvalidContactNameException, InvalidEmailException {
+    public void addContact(String name, String email, String phoneNumber) throws InvalidContactNameException, InvalidEmailException, IOException {
 
         if (name == null) {
             throw new InvalidContactNameException("Le champ nom est null!!!");
@@ -32,8 +35,11 @@ public class ContactsManager {
         newContact = new Contact(name, email, phoneNumber);
         if (contactList.isEmpty()) {
             contactList.add(0, newContact);
+            contctPersist.write_Contacts_in_CSV_File(newContact);
+
         } else {
             contactList.add(newContact);
+            contctPersist.write_Contacts_in_CSV_File(newContact);
         }
     }
 
