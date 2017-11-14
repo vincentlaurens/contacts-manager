@@ -3,40 +3,53 @@ package com.fredericboisguerin.insa;
 
 
 import java.io.*;
+
+import com.opencsv.CSVWriter;
+import com.opencsv.CSVReader;
 import java.util.ArrayList;
+import java.util.List;
 
-import com.opencsv.*;
+public class ContactDAO{
+    private static String FILEPATH = "src/ressources/contactList.csv";
+    private List<String[]> listeContacttoSave;
 
-public class ContactDAO {
-    private File file;
-    private FileReader file_reader;
-    private FileWriter file_writer;
-    private CSVWriter writer;
-  //  private ArrayList<String> chaineCSV;
-    private String[] entries;
-
-    public ContactDAO(String File_CSV_Path, String File_CSV_Name) throws FileNotFoundException, IOException {
-        this.file = new File(File_CSV_Path + File_CSV_Name);
-        this.file_reader = new FileReader(file);
-        this.file_writer = new FileWriter(file);
-       // this.chaineCSV = new ArrayList<>();
-
+    public ContactDAO()throws IOException {
+        this.listeContacttoSave = new ArrayList<String[]>();
     }
 
-    public void write_Contacts_in_CSV_File(Contact persit) throws IOException{
-        writer = new CSVWriter(this.file_writer, '\n');
-        if (file.length() >0){
-            for (int i=0; i<file.length();i++){
+    public void write_Contacts_in_CSV_File(ContactsManager monContact) throws IOException{
+
+        for (Contact courant : monContact.contactList) {
+            String[] entries = courant.savetoCsvFormat();
+            this.listeContacttoSave.add(entries);
         }
-        this.entries = new String[(int) file.length()];
-        this.entries[0] = persit.utiliseName() +";" +persit.utiliseemail()+ "; "+ persit.utilisePhoneNumber(); //this.chaineCSV.get(i);
-        try {
+        try(CSVWriter writer = new CSVWriter(new FileWriter(FILEPATH))) {
+            writer.writeAll(this.listeContacttoSave);
         }
-            writer.writeNext(this.entries);
-            writer.flush();
-                //  writer.close();
-        } catch (IOException e) {
-             e.printStackTrace();
+    }
+    public void read_Contacts_in_CSV_File(ContactsManager monContact) throws IOException, InvalidEmailException, InvalidContactNameException {
+        try (CSVReader reader = new CSVReader(new FileReader(FILEPATH))){
+            String[] nextContact, contactInfo;
+
+            String nameContactLu;
+            String emailContactLu;
+            String phoneNumberContactLu;
+
+            while ((nextContact = reader.readNext()) != null) {
+                // nextLine[] is an array of values from the line
+                String ContactLu = nextContact[0];
+
+                contactInfo = ContactLu.split(",");
+                nameContactLu = contactInfo[0];
+                emailContactLu = contactInfo[1];
+                phoneNumberContactLu = contactInfo[2];
+
+                //System.out.println(nomContactLu+","+emailContactLu+","+phoneNumberContactLu);
+                monContact.addContact(nameContactLu, emailContactLu, phoneNumberContactLu);
+
+
+
+            }
         }
     }
 }

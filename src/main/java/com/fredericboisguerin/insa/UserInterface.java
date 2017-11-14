@@ -9,8 +9,9 @@ public class UserInterface {
         Scanner sc = new Scanner(System.in);
         boolean inMenu = true;
         ContactsManager monContact = new ContactsManager();
+        ContactDAO monContactDAO = new ContactDAO();
         while (inMenu) {
-            System.out.println("--------------------\n 1-Créer un nouveau contact\n 2-Chercher un contact \n 3-Afficher les contact\n 4-Quitter le menu \n ---------------------");
+            System.out.println("--------------------\n 1-Créer un nouveau contact\n 2-Chercher un contact \n 3-Afficher les contact\n 4-Enregistrement des données \n 5-Recuperation des contacts \n 6-Quitter le menu \n  ---------------------");
             System.out.println("Faite votre choix:");
             int choixMenuUser  = sc.nextInt();
             switch (choixMenuUser) {
@@ -23,6 +24,7 @@ public class UserInterface {
                     System.out.println("Entrez le numéro de téléphone du nouveau contact:");
                     String phonenumbernewContact = sc.next();
                     monContact.addContact(nomnewContact,emailnewContact,phonenumbernewContact);
+                   // monContactDAO.write_Contacts_in_CSV_File(monContact);
                     break;
                 //chercher contact
                 case 2:
@@ -33,8 +35,19 @@ public class UserInterface {
                 //afficher liste
                 case 3:
                     monContact.printAllContacts();
+
                     break;
                 case 4:
+                    System.out.println("Données enregistrées  !!!");
+                    monContactDAO.write_Contacts_in_CSV_File(monContact);
+                    break;
+
+                case 5:
+                    System.out.println("Données extraites du fichier  !!!");
+                    monContactDAO.read_Contacts_in_CSV_File(monContact);
+                    break;
+                case 6:
+                    monContactDAO.write_Contacts_in_CSV_File(monContact);
                     inMenu = false;
                     System.out.println("Vous avez quitté le menu !!!");
                     break;

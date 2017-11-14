@@ -8,12 +8,10 @@ import java.util.regex.Matcher;
 public class ContactsManager {
     private Contact newContact;
     private Contact parcoursearch;
-    private ContactDAO contctPersist;
     ArrayList<Contact> contactList;
 
     public ContactsManager() throws IOException {
         this.contactList = new ArrayList<Contact>();
-        this.contctPersist = new ContactDAO("src/ressources/","contactList.csv");
     }
 
     public void addContact(String name, String email, String phoneNumber) throws InvalidContactNameException, InvalidEmailException, IOException {
@@ -35,11 +33,9 @@ public class ContactsManager {
         newContact = new Contact(name, email, phoneNumber);
         if (contactList.isEmpty()) {
             contactList.add(0, newContact);
-            contctPersist.write_Contacts_in_CSV_File(newContact);
 
         } else {
             contactList.add(newContact);
-            contctPersist.write_Contacts_in_CSV_File(newContact);
         }
     }
 

@@ -38,5 +38,8 @@ public class Contact {
     public String utilisePhoneNumber(){
         return this.phoneNumber;
     }
+    public String[] savetoCsvFormat(){
+        return new String[]{this.name + "," + this.email + "," + this.phoneNumber};
+    }
 
 }
