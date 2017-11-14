@@ -41,5 +41,10 @@ public class Contact {
     public String[] savetoCsvFormat(){
         return new String[]{this.name + "," + this.email + "," + this.phoneNumber};
     }
+    public void modifyContact(String newName, String newEmail, String newNumberPhone){
+        this.name = newName;
+        this.email = newEmail;
+        this.phoneNumber = newNumberPhone;
+    }
 
 }

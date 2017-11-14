@@ -64,6 +64,62 @@ public class ContactsManager {
             System.out.println("Aucun contact trouvé");
         }
     }
+    public void removeContactByName(String name){
+        boolean vraiSiTrouveAuMoinsUnContact =  false;
+        for( Contact courant : this.contactList){
+            String nomAcompare = courant.utiliseName();
+            nomAcompare = nomAcompare.toLowerCase();
+            if( nomAcompare.contains(name)){
+                System.out.println(courant.toString());
+                this.contactList.remove(courant);
+                vraiSiTrouveAuMoinsUnContact = true;
+            }
+        }
+        if(!vraiSiTrouveAuMoinsUnContact){
+            System.out.println("Le contact que vous voulez supprime n'existe pas!!!");
+        }
+    }
+
+    public void modifyContactByName(String name, String newName, String newEmail, String newPhoneNumber) throws InvalidContactNameException, InvalidEmailException {
+        boolean vraiSiTrouveAuMoinsUnContact =  false;
+        for( Contact courant : this.contactList){
+            String nomAcompare = courant.utiliseName();
+            nomAcompare = nomAcompare.toLowerCase();
+
+            if( nomAcompare.contains(name)){
+                if(newName=="identique"){
+                    newName = courant.utiliseName();
+                }
+                if(newEmail=="identique"){
+                    newEmail = courant.utiliseemail();
+                }
+                if(newPhoneNumber == "identique"){
+                    newPhoneNumber = courant.utilisePhoneNumber();
+                }
+                if (newEmail == null) {
+                    throw new InvalidContactNameException("Le champ nom est null!!!");
+                }
+                if (newEmail == "") {
+                    throw new InvalidContactNameException("Le champ nom est vide!!!");
+                }
+                if (null != newEmail) {
+                    String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,}$";
+                    Pattern pattern = Pattern.compile(regex);
+                    Matcher matcher = pattern.matcher(newEmail);
+                    if (!matcher.matches()) {
+                        throw new InvalidEmailException("Email not valid!!!");
+                    }
+                }
+                System.out.println(courant.toString());
+                courant.modifyContact(newName, newEmail, newPhoneNumber);
+                vraiSiTrouveAuMoinsUnContact = true;
+            }
+        }
+        if(!vraiSiTrouveAuMoinsUnContact){
+            System.out.println("Le contact que vous voulez modifier n'existe pas!!!");
+        }
+    }
+
 }
 
 

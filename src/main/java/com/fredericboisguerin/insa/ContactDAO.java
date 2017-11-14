@@ -35,6 +35,8 @@ public class ContactDAO{
             String emailContactLu;
             String phoneNumberContactLu;
 
+            monContact.contactList.clear();
+
             while ((nextContact = reader.readNext()) != null) {
                 // nextLine[] is an array of values from the line
                 String ContactLu = nextContact[0];
@@ -45,6 +47,7 @@ public class ContactDAO{
                 phoneNumberContactLu = contactInfo[2];
 
                 //System.out.println(nomContactLu+","+emailContactLu+","+phoneNumberContactLu);
+
                 monContact.addContact(nameContactLu, emailContactLu, phoneNumberContactLu);
 
 
